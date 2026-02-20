@@ -43,4 +43,33 @@
  */
 export function generateLocalPass(passenger) {
   // Your code here
+   if (!passenger || typeof passenger !== "object") return "INVALID PASS";
+
+  // object destructuring
+  const { name, from, to, classType } = passenger;
+
+  if (typeof name !== "string" || name.trim() === "" ||typeof from !== "string" || from.trim() === "" ||typeof to !== "string" || to.trim() === "" ||typeof classType !== "string" || classType.trim() === "") {
+    return "INVALID PASS";
+  }
+
+  const cls = classType.trim().toLowerCase();
+
+  if (cls !== "first" && cls !== "second") return "INVALID PASS";
+
+  // Title Case helper
+  const toTitleCase = (str) => str.trim().charAt(0).toUpperCase() + str.trim().slice(1).toLowerCase();
+
+  const fromClean = from.trim();
+  const toClean = to.trim();
+
+  const passId = cls.charAt(0).toUpperCase() + fromClean.slice(0, 3).toUpperCase() + toClean.slice(0, 3).toUpperCase();
+
+  return `MUMBAI LOCAL PASS
+---
+Name: ${name.trim().toUpperCase()}
+From: ${toTitleCase(from)}
+To: ${toTitleCase(to)}
+Class: ${cls.toUpperCase()}
+Pass ID: ${passId}`;
+
 }

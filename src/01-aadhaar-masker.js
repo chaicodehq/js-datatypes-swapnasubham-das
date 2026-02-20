@@ -29,4 +29,42 @@
  */
 export function maskAadhaar(aadhaarNumber) {
   // Your code here
+  if(typeof aadhaarNumber != "string"){
+    return "INVALID"
+  }
+
+  if(aadhaarNumber.length !== 12){
+    return "INVALID"
+  }
+
+  if(aadhaarNumber.length === 0){
+    return "INVALID"
+  }
+
+  for(let i = 0; i < aadhaarNumber.length; i++){
+    if(aadhaarNumber[i] < "0" || aadhaarNumber[i] > "9"){
+      return "INVALID"
+    }
+  }
+
+  const lastFour = aadhaarNumber.slice(-4);
+  const masked = "X".repeat(8);
+
+  let result = "";
+  for (let i = 0; i < aadhaarNumber.length; i++) {
+
+    if (i === 4 || i === 8) {
+      result = result + "-";
+    }
+
+    if (i < 8) {
+      result = result + masked[i];
+    } 
+    else {
+      result = result + lastFour[i - 8];
+    }
+  }
+
+  return result;
+
 }
